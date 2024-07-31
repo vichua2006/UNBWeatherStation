@@ -8,7 +8,7 @@ import bme280
 address = 0x77
 
 # Initialize I2C bus
-bus = smbus2.SMBus(1)
+bus = smbus2.SMBus(0)
 
 # Load calibration parameters (basically specifying a sensor)
 calibration_params = bme280.load_calibration_params(bus, address)
