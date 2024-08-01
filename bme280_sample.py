@@ -1,6 +1,6 @@
-# source: https://randomnerdtutorials.com/raspberry-pi-bme280-python/
-
 import time
+import pytz
+import datetime
 import smbus2
 import bme280
 
@@ -13,33 +13,62 @@ bus = smbus2.SMBus(0)
 # Load calibration parameters (basically specifying a sensor)
 calibration_params = bme280.load_calibration_params(bus, address)
 
+# Load timezone 
+halifax_tz = pytz.timezone("America/Halifax")
+
 def celsius_to_fahrenheit(celsius):
     return (celsius * 9/5) + 32
 
-while True:
-    try:
-        # Read sensor data
-        data = bme280.sample(bus, address, calibration_params)
+def main():
 
-        # Extract temperature, pressure, and humidity
-        temperature_celsius = data.temperature
-        pressure = data.pressure
-        humidity = data.humidity
+    header = [
+        "Time",
+        "Temperature (C)",
+        "Pressure (hPa)",
+        "Humidity",
+    ]
 
-        # Convert temperature to Fahrenheit
-        temperature_fahrenheit = celsius_to_fahrenheit(temperature_celsius)
+    # Init csv file header
+    date = datetime.datetime.now().strftime("%Y-%m-%d") 
+    with open(rf"data/{date}.csv", "w") as file:
+        header_str = ",".join(header)
+        file.write(header_str + "\n")
 
-        # Print the readings
-        print(f"Temp: {temperature_celsius}")
-        print("Pressure: {:.2f} hPa".format(pressure))
-        print("Humidity: {:.2f} %".format(humidity))
+        # main loop
+        while True:
+            try:
+                # Read sensor data
+                data = bme280.sample(bus, address, calibration_params)
 
-        # Wait for a few seconds before the next reading
-        time.sleep(0.1)
+                # Extract temperature, pressure, and humidity
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                temperature_celsius = data.temperature
+                pressure = data.pressure
+                humidity = data.humidity
 
-    except KeyboardInterrupt:
-        print('Program stopped')
-        break
-    except Exception as e:
-        print('An unexpected error occurred:', str(e))
-        break
+                # Convert temperature to Fahrenheit
+                # temperature_fahrenheit = celsius_to_fahrenheit(temperature_celsius)
+
+                # write the measurements to the csv file
+                reading_str = ",".join([str(x) for x in [
+                    timestamp,
+                    temperature_celsius,
+                    pressure,
+                    humidity,
+                ]])
+
+                file.write(reading_str)
+                file.write("\n")
+
+                # Wait for a few seconds before the next reading
+                time.sleep(0.5)
+
+            except KeyboardInterrupt:
+                print('Program stopped')
+                break
+            except Exception as e:
+                print('An unexpected error occurred:', str(e))
+                break
+
+if (__name__ == "__main__"):
+    main()
