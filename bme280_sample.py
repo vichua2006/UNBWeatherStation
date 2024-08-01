@@ -74,7 +74,7 @@ def main():
                 print(reading_str)
 
                 # Wait for a few seconds before the next reading
-                time.sleep(0.5)
+                time.sleep(1)
 
             except KeyboardInterrupt:
                 print('Program stopped')
