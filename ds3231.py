@@ -10,3 +10,7 @@ PRESSURE_CALI = os.getenv("PRESSURE_CALI")
 HUMIDITY_CALI = os.getenv("HUMIDITY_CALI")
 
 print(device_name, TEMP_CALI, PRESSURE_CALI, HUMIDITY_CALI)
+
+f = open("data/test.txt", "w")
+f.write("hi")
+f.close()
