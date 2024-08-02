@@ -47,7 +47,7 @@ def main():
         file.write(header_str + "\n")
 
         # main loop
-        for i in range(60):
+        for i in range(420):
             try:
                 # Read sensor data
                 data = bme280.sample(bus, address, calibration_params)
