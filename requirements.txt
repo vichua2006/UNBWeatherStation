@@ -1,1 +1,3 @@
 RPI.BME280
+smbus2
+python-dotenv
