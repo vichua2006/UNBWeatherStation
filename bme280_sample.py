@@ -40,13 +40,13 @@ def main():
     ]
 
     # Init csv file header
-    date = datetime.datetime.now().strftime("%Y-%m-%d") 
-    with open(rf"data/{date}_{device_name}.csv", "w") as file:
+    date = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M") 
+    with open(rf"/home/vichua2006/Desktop/UNBWeatherStation/data/{date}_{device_name}.csv", "w") as file:
         header_str = ",".join(header)
         file.write(header_str + "\n")
 
         # main loop
-        while True:
+        for i in range(60):
             try:
                 # Read sensor data
                 data = bme280.sample(bus, address, calibration_params)
@@ -84,4 +84,5 @@ def main():
                 break
 
 if (__name__ == "__main__"):
+    time.sleep(30) # wait for system to be set to RTC clock
     main()
