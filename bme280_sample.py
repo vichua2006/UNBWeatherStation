@@ -23,6 +23,7 @@ load_dotenv()
 
 # Load device name and calibration 
 device_name = os.getenv("NAME")
+USERNAME = str(os.getenv("USERNAME"))
 TEMP_CALI = float(os.getenv("TEMP_CALI"))
 PRESSURE_CALI = float(os.getenv("PRESSURE_CALI"))
 HUMIDITY_CALI = float(os.getenv("HUMIDITY_CALI"))
@@ -41,7 +42,7 @@ def main():
 
     # Init csv file header
     date = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M") 
-    with open(rf"/home/vichua2006/Desktop/UNBWeatherStation/data/{date}_{device_name}.csv", "w") as file:
+    with open(rf"/home/{USERNAME}/Desktop/UNBWeatherStation/data/{date}_{device_name}.csv", "w") as file:
         header_str = ",".join(header)
         file.write(header_str + "\n")
 
