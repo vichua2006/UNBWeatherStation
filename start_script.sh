@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 # To record on startup
 . /home/UNBWeatherStation/venv/bin/activate

@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 
 # for the RTC; must be before the script to have accurate time
