@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import pytz
 import datetime
@@ -30,7 +31,7 @@ HUMIDITY_CALI = float(os.getenv("HUMIDITY_CALI"))
 def celsius_to_fahrenheit(celsius):
     return (celsius * 9/5) + 32
 
-def main():
+def main(rec_sec=10):
 
     header = [
         "Time",
@@ -46,7 +47,7 @@ def main():
         file.write(header_str + "\n")
 
         # main loop
-        for i in range(360):
+        for i in range(rec_sec):
             try:
                 # Read sensor data
                 data = bme280.sample(bus, address, calibration_params)
@@ -85,4 +86,7 @@ def main():
 
 if (__name__ == "__main__"):
     time.sleep(30) # wait for RTC to be set as system clock
-    main()
+    args = sys.argv
+    if (len(args) > 1): main(int(args[1]))
+    else: main()
+
