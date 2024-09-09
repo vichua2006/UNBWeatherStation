@@ -9,3 +9,21 @@ The station consisted of a BME280 (environement sensor) and a DS3231 (Real Time 
 # Development
 
 Using SSH, we remotely connected to the Raspberry Pi's and used Git for version control. The scripts were mainly in Python and Bash.
+
+# Results and Error
+
+Below are our measured lapse rates:
+
+| Rate ($\degree$ C / km) | Uncertainty for Lapse Rate (Error Propagation) |
+| ----------------------- | ---------------------------------------------- |
+| 5.40                    | $\pm$ 3.08                                     |
+| 7.76                    | $\pm$ 3.09                                     |
+| 12.71                   | $\pm$ 3.10                                     |
+| 16.02                   | $\pm$ 3.12                                     |
+| 19.57                   | $\pm$ 3.14                                     |
+
+The final average was $12.3 \pm 1.4 \degree km^{-1}$, which fell significantly out of bounds of the theoretical maximum.
+
+We concluded that this was the result of too small of an altitude difference (45m) which greately magnified the errors, producing an inaccurate result.
+
+## Graph of Result
